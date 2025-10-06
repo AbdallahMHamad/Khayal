@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -5,17 +6,32 @@ import Examples from "./components/Examples";
 import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
+import Login from "./components/Login";
+
 import "./index.css";
-function App() {
+
+function HomePage() {
   return (
-    <div>
-      <Navbar />
+    <>
+          <Navbar />
+
       <Hero />
       <Features />
       <Examples />
       <Pricing />
       <FAQ />
       <Footer />
+    </>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </div>
   );
 }
