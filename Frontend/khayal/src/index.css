@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   @apply bg-gradient-to-b from-black via-[#0a0f2e] to-[#142b7a] text-white;
