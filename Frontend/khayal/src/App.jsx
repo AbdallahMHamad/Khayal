@@ -7,14 +7,14 @@ import Pricing from "./components/Pricing";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
+import { useState } from "react";
 
 import "./index.css";
 
 function HomePage() {
   return (
     <>
-          <Navbar />
-
+      <Navbar />
       <Hero />
       <Features />
       <Examples />
@@ -26,11 +26,21 @@ function HomePage() {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? <HomePage /> : <Login setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
       </Routes>
     </div>
   );

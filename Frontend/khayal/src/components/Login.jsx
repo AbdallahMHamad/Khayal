@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://khayal.onrender.com/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(
+        error.response?.data?.message || "Login failed, please try again."
+      );
+      setEmail("");
+      setPassword("");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Galaxy Background */}
       <div className="absolute top-10 left-10 z-30">
-  <a href="/"  className="text-2xl font-bold text-blue-400">
-    Khayal
-  </a>
-</div>
-      <div className="absolute inset-0 bg-gradient-to-br from-Black-900 via-blue-900 to-black animate-gradient-xy">
-        {/* Stars */}
+        <a href="/" className="text-2xl font-bold text-blue-400">
+          Khayal
+        </a>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-900 to-black animate-gradient-xy">
         <div className="absolute inset-0">
           {Array.from({ length: 200 }).map((_, i) => (
             <div
@@ -22,7 +48,9 @@ export default function Login() {
                 height: Math.random() * 2 + 1 + "px",
                 top: Math.random() * 100 + "%",
                 left: Math.random() * 100 + "%",
-                animation: `twinkle ${Math.random() * 80 + 2}s infinite alternate`,
+                animation: `twinkle ${
+                  Math.random() * 80 + 2
+                }s infinite alternate`,
               }}
             />
           ))}
@@ -54,28 +82,38 @@ export default function Login() {
           </p>
         </div>
 
-        <a href="/" className="w-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors py-2 rounded-lg flex items-center justify-center gap-2 mb-4 border border-purple-400/50">
-          <img style={{width: "20px", height: "20px" , borderRadius: "47%"}}
-src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI0MDtxPTgwO3c9MjQw/https://s.yimg.com/zb/imgv1/e76fa261-e45b-3514-872d-e8fa3a2473e5/t_500x300"            alt="Google"
+        <button
+          type="submit"
+          href="/"
+          className="w-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors py-2 rounded-lg flex items-center justify-center gap-2 mb-4 border border-purple-400/50 cursor-pointer"
+        >
+          <img
+            style={{ width: "20px", height: "20px", borderRadius: "47%" }}
+            src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI0MDtxPTgwO3c9MjQw/https://s.yimg.com/zb/imgv1/e76fa261-e45b-3514-872d-e8fa3a2473e5/t_500x300"
+            alt="Google"
             className="w-5 h-5"
           />
           Continue with Google
-        </a>
+        </button>
 
         <div className="text-center text-gray-400 text-xs mb-4">
           OR CONTINUE WITH EMAIL
         </div>
 
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
             placeholder="you@example.com"
             className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="********"
             className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <div className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
@@ -84,9 +122,10 @@ src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaG
 
           <button
             type="submit"
+            disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
@@ -98,7 +137,6 @@ src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaG
         </p>
       </div>
 
-      {/* Tailwind Keyframes for Stars */}
       <style>
         {`
           @keyframes twinkle {
@@ -114,9 +152,21 @@ src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaG
             background-size: 200% 200%;
             animation: gradient-xy 15s ease infinite;
           }
+         @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-out {
+            animation: fadeInOut 4s ease-in-out forwards;
+          }
         `}
       </style>
+
+      {message && (
+        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black-500 to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
+          {message}
+        </div>
+      )}
     </div>
-    
   );
 }
