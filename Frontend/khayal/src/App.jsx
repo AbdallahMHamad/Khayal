@@ -8,6 +8,7 @@ import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import ForgotPassword from "./components/forgetPassword";
 import { useState } from "react";
 
 import "./index.css";
@@ -38,6 +39,7 @@ function App() {
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgetPassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

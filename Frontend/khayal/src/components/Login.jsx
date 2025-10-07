@@ -118,7 +118,7 @@ export default function Login() {
           />
 
           <div className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
-            Forgot password?
+            <Link to="/forgotPassword">Forgot password?</Link>
           </div>
 
           <button

@@ -12,7 +12,7 @@ export default function Pricing() {
         "Limited cloud storage (2GB)",
         "Community support",
       ],
-      color: "from-blue-900 via-purple-900 to-black",
+      color: "from-blue-900 via-black-900 to-black",
     },
     {
       name: "Professional",
@@ -25,7 +25,7 @@ export default function Pricing() {
         "Email support",
         "Custom style presets",
       ],
-      color: "from-purple-900 via-blue-800 to-black",
+      color: "from-blue-900 via-black-900 to-black",
     },
     {
       name: "Genius",
@@ -38,7 +38,7 @@ export default function Pricing() {
         "Early access to new models",
         "Dedicated support",
       ],
-      color: "from-indigo-900 via-purple-800 to-black",
+      color: "from-blue-900 via-black-900 to-black",
     },
     {
       name: "Business",
@@ -51,7 +51,7 @@ export default function Pricing() {
         "API access",
         "24/7 premium support",
       ],
-      color: "from-blue-950 via-purple-950 to-black",
+      color: "from-blue-900 via-black-900 to-black",
     },
   ];
 
@@ -69,7 +69,7 @@ export default function Pricing() {
       <div className="absolute w-96 h-96 bg-blue-500/20 blur-3xl rounded-full bottom-10 right-10 animate-pulse"></div>
 
       <div className="relative z-10">
-        <h2 className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-16">
+        <h2 className="text-5xl font-extrabold bg-gradient-to-r from-blue-400 to-black-400 bg-clip-text text-transparent mb-16">
           Pricing Plans
         </h2>
 
@@ -77,10 +77,10 @@ export default function Pricing() {
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`relative group rounded-2xl p-8 bg-gradient-to-b ${plan.color} border border-purple-500/20 shadow-2xl hover:shadow-purple-500/30 transition-all duration-300`}
+              className={`relative group rounded-2xl p-8 bg-gradient-to-b ${plan.color} border border-blue-500/20 shadow-2xl hover:shadow-black-500/30 transition-all duration-300`}
             >
               {/* Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-purple-700/30 to-blue-700/30 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-black-700/30 to-blue-700/30 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500"></div>
 
               {/* Content */}
               <div className="relative z-10">
@@ -102,7 +102,7 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-400/40">
+                <button className="w-full bg-gradient-to-r from-blue-600 to-black-600 hover:from-blue-500 hover:to-black-500 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-400/40">
                   Choose Plan
                 </button>
               </div>
