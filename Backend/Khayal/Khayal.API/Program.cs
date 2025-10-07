@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 
-//hello from server
+//hello from server gererwrw
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
