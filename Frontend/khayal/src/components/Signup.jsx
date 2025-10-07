@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function Login() {
+export default function Signup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -13,16 +14,18 @@ export default function Login() {
     e.preventDefault();
     setMessage("");
     setLoading(true);
-
     try {
       const response = await axios.post(
-        "https://localhost:7058/api/user/login",
-        { email, password },
+        "https://localhost:7058/api/user/register",
+        { name, email, password },
         { withCredentials: true }
       );
-      setMessage(response.data.message);
+      setMessage(response.data.message || "Account created successfully!");
     } catch (error) {
-      setMessage(error.response?.data?.message);
+      setMessage(
+        error.response?.data?.message || "Signup failed, please try again."
+      );
+      setName("");
       setEmail("");
       setPassword("");
     } finally {
@@ -73,18 +76,18 @@ export default function Login() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
+                d="M12 4v16m8-8H4"
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-white">Create Account</h1>
           <p className="text-gray-300 mt-2 text-sm">
-            Sign in to explore the universe of possibilities
+            Join the universe of possibilities
           </p>
         </div>
+
         <button
-          type="submit"
-          href="/"
+          type="button"
           className="w-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors py-2 rounded-lg flex items-center justify-center gap-2 mb-4 border border-purple-400/50 cursor-pointer"
         >
           <img
@@ -95,10 +98,19 @@ export default function Login() {
           />
           Continue with Google
         </button>
+
         <div className="text-center text-gray-400 text-xs mb-4">
-          OR CONTINUE WITH EMAIL
+          OR SIGN UP WITH EMAIL
         </div>
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <input
             type="email"
             placeholder="you@example.com"
@@ -114,25 +126,22 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <div className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
-            Forgot password?
-          </div>
-
           <button
             type="submit"
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Creating Account..." : "Sign Up"}
           </button>
         </form>
+
         <p className="text-center text-gray-400 text-sm mt-6">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <span
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/Login")}
             className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
           >
-            Sign Up
+            Log In
           </span>
         </p>
       </div>
@@ -163,7 +172,7 @@ export default function Login() {
       </style>
 
       {message && (
-        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black-500 to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
+        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
           {message}
         </div>
       )}
