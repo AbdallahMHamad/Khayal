@@ -27,17 +27,12 @@ function HomePage() {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            isLoggedIn ? <HomePage /> : <Login setIsLoggedIn={setIsLoggedIn} />
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}

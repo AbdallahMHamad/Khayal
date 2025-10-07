@@ -16,7 +16,9 @@ export default function Navbar() {
         scrolled ? "navbar-small" : ""
       }`}
     >
-      <Link to="/" className="text-2xl font-bold text-blue-400">Khayal</Link>
+      <Link to="/" className="text-2xl font-bold text-blue-400">
+        Khayal
+      </Link>
       <ul className="hidden md:flex gap-8 text-sm font-medium">
         <li>
           <a href="#features" className="hover:text-blue-400">
@@ -39,8 +41,11 @@ export default function Navbar() {
           </a>
         </li>
       </ul>
-      <Link to="/login" className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold">
-        Sign In
+      <Link
+        to="/login"
+        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold"
+      >
+        login In
       </Link>
     </nav>
   );
