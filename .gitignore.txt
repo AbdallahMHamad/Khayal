@@ -1,10 +1,10 @@
 # Ignore Visual Studio temporary files, build results, and cache
-.vs/
-bin/
-obj/
+**/.vs/
+**/bin/
+**/obj/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
-# Optional (recommended)
+# Optional app settings
 appsettings.Development.json
