@@ -41,7 +41,7 @@ export default function Signup() {
           Khayal
         </a>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-900 to-black animate-gradient-xy">
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-900 to-green animate-gradient-xy">
         <div className="absolute inset-0">
           {Array.from({ length: 200 }).map((_, i) => (
             <div

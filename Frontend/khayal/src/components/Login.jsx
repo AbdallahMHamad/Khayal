@@ -22,7 +22,9 @@ export default function Login() {
       );
       setMessage(response.data.message);
     } catch (error) {
-      setMessage(error.response?.data?.message);
+      setMessage(
+        error.response?.data?.message || "Login failed, please try again."
+      );
       setEmail("");
       setPassword("");
     } finally {
@@ -123,7 +125,7 @@ export default function Login() {
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "logging In..." : "log In"}
           </button>
         </form>
         <p className="text-center text-gray-400 text-sm mt-6">
@@ -163,7 +165,7 @@ export default function Login() {
       </style>
 
       {message && (
-        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black-500 to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
+        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
           {message}
         </div>
       )}
