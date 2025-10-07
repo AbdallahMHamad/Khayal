@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore.txt" />
+  </Folder>
   <Project Path="Khayal.API/Khayal.API.csproj">
     <BuildDependency Project="Khayal.APP/Khayal.App.csproj" />
     <BuildDependency Project="Khayal.Core/Khayal.Core.csproj" />
