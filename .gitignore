@@ -1,4 +1,4 @@
-
+@"
 **/.vs/
 **/bin/
 **/obj/
@@ -6,5 +6,4 @@
 *.suo
 *.userosscache
 *.sln.docstates
-
-appsettings.Development.json
+"@ | Set-Content -Encoding UTF8 ".gitignore"
