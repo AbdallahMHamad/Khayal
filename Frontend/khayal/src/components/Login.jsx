@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
@@ -117,9 +117,9 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <div className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
-            Forgot password?
-          </div>
+<button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
+            <Link to="/forgetPassword">Forgot password?</Link>
+          </button>
 
           <button
             type="submit"
