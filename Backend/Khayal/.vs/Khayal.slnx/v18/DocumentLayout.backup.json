@@ -1,0 +1,85 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Programs\\Khayal\\Backend\\Khayal\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5BFC6F93-F4DA-21CF-E18F-34B301DB91E0}|Khayal.Data\\Khayal.Data.csproj|d:\\programs\\khayal\\backend\\khayal\\khayal.data\\khayal.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5BFC6F93-F4DA-21CF-E18F-34B301DB91E0}|Khayal.Data\\Khayal.Data.csproj|solutionrelative:khayal.data\\khayal.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7092D8DE-C002-EDA9-4E83-6C375651E07F}|Khayal.API\\Khayal.API.csproj|d:\\programs\\khayal\\backend\\khayal\\khayal.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7092D8DE-C002-EDA9-4E83-6C375651E07F}|Khayal.API\\Khayal.API.csproj|solutionrelative:khayal.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7092D8DE-C002-EDA9-4E83-6C375651E07F}|Khayal.API\\Khayal.API.csproj|d:\\programs\\khayal\\backend\\khayal\\khayal.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7092D8DE-C002-EDA9-4E83-6C375651E07F}|Khayal.API\\Khayal.API.csproj|solutionrelative:khayal.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Khayal.Data",
+              "DocumentMoniker": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Data\\Khayal.Data.csproj",
+              "RelativeDocumentMoniker": "Khayal.Data\\Khayal.Data.csproj",
+              "ToolTip": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Data\\Khayal.Data.csproj",
+              "RelativeToolTip": "Khayal.Data\\Khayal.Data.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-07T17:31:11.926Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Khayal.API\\appsettings.json",
+              "ToolTip": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.API\\appsettings.json",
+              "RelativeToolTip": "Khayal.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-07T16:51:38.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.API\\Program.cs",
+              "RelativeDocumentMoniker": "Khayal.API\\Program.cs",
+              "ToolTip": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.API\\Program.cs",
+              "RelativeToolTip": "Khayal.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:47:46.263Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
