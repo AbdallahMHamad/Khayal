@@ -25,7 +25,8 @@ export default function Pricing() {
         "Email support",
         "Custom style presets",
       ],
-      color: "from-blue-900 via-black-900 to-black",
+      color: "from-purple-800 via-purple-900 to-blue-900",
+      popular: true, // ✅ mark as most popular
     },
     {
       name: "Genius",
@@ -61,7 +62,7 @@ export default function Pricing() {
       className="relative py-24 text-center text-white overflow-hidden bg-black"
     >
       {/* Subtle galaxy background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-950 to-blue-950 opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-b-950 to-blue-950 opacity-90"></div>
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-40"></div>
 
       {/* Floating lights */}
@@ -77,8 +78,21 @@ export default function Pricing() {
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`relative group rounded-2xl p-8 bg-gradient-to-b ${plan.color} border border-blue-500/20 shadow-2xl hover:shadow-black-500/30 transition-all duration-300`}
+              className={`relative group rounded-2xl p-8 border border-blue-500/20 shadow-2xl transition-all duration-300
+                ${
+                  plan.popular
+                    ? "scale-105 border-purple-400 shadow-purple-700/50"
+                    : ""
+                }
+                bg-gradient-to-b ${plan.color}`}
             >
+              {/* Popular badge */}
+              {plan.popular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                  Most Popular
+                </div>
+              )}
+
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-tr from-black-700/30 to-blue-700/30 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500"></div>
 
@@ -102,7 +116,13 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <button className="w-full bg-gradient-to-r from-blue-600 to-black-600 hover:from-blue-500 hover:to-black-500 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg shadow-green-500/20 hover:shadow-green-400/40">
+                <button
+                  className={`w-full text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-lg ${
+                    plan.popular
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 shadow-purple-500/40 hover:from-purple-500 hover:to-blue-500"
+                      : "bg-gradient-to-r from-blue-600 to-black-600 hover:from-blue-500 hover:to-black-500 shadow-green-500/20 hover:shadow-green-400/40"
+                  }`}
+                >
                   Choose Plan
                 </button>
               </div>

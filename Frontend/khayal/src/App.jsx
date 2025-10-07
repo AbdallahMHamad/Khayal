@@ -35,13 +35,13 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route path="/signup" element={<Signup />} />
-                <Route path="/forgetPassword" element={<ForgotPassword />} />
-
+        <Route path="/forgetPassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

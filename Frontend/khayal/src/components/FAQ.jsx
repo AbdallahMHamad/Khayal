@@ -46,9 +46,9 @@ export default function FAQ() {
                 {f.q}
               </h3>
               {openIndex === i ? (
-                <ChevronUp className="text-green-400 w-5 h-5" />
+                <ChevronUp className="text-blue-400 w-5 h-5" />
               ) : (
-                <ChevronDown className="text-green-400 w-5 h-5" />
+                <ChevronDown className="text-blue-400 w-5 h-5" />
               )}
             </button>
 

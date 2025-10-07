@@ -1,30 +1,66 @@
+import React, { useState, useRef } from "react";
 export default function Examples() {
+  const [sliderPos, setSliderPos] = useState(50); // Default: middle
+  const containerRef = useRef(null);
+
+  // Handle slider movement
+  const handleMove = (e) => {
+    const rect = containerRef.current.getBoundingClientRect();
+    let x = ((e.clientX - rect.left) / rect.width) * 100;
+    x = Math.max(0, Math.min(x, 100)); // Clamp between 0 and 100
+    setSliderPos(x);
+  };
+
   return (
     <section
       id="examples"
-      className="py-24 text-center bg-blue text-white relative overflow-hidden"
+      className="py-24 text-center bg-black text-white relative overflow-hidden"
     >
       {/* Title */}
-      <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-blue-400 to-black-400 bg-clip-text text-transparent">
+      <h2 className="text-4xl md:text-5xl font-bold mb-16 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
         Before & After
       </h2>
 
-      {/* ======= Before & After Preview ======= */}
-      <div className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-[0_0_40px_-10px_rgba(88,28,135,0.5)] border border-purple-500/30">
+      {/* ======= Before & After Slider ======= */}
+      <div
+        ref={containerRef}
+        onMouseMove={(e) => e.buttons === 1 && handleMove(e)}
+        onClick={handleMove}
+        className="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-[0_0_40px_-10px_rgba(168,85,247,0.5)] border border-purple-500/30 cursor-ew-resize select-none"
+      >
         {/* Before Image */}
         <img
-          src="/before.jpg"
+          src="/after.png"
           alt="Before"
-          className="absolute inset-0 w-full h-full object-cover opacity-90"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* After Overlay */}
-        <div className="absolute inset-0 w-1/2 overflow-hidden border-r border-purple-400/60 transition-all duration-700 hover:w-3/4">
+        {/* After Image with clipping */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ width: `${sliderPos}%` }}
+        >
           <img
-            src="/after.jpg"
+            src="/after.png"
             alt="After"
             className="w-full h-full object-cover"
           />
+        </div>
+
+        {/* Slider Line */}
+        <div
+          className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-purple-400 via-blue-400 to-pink-400"
+          style={{ left: `${sliderPos}%`, transform: "translateX(-50%)" }}
+        ></div>
+
+        {/* Slider Button */}
+        <div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
+          style={{ left: `${sliderPos}%` }}
+        >
+          <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full shadow-lg border border-white/40 flex items-center justify-center">
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+          </div>
         </div>
 
         {/* Labels */}
@@ -36,15 +72,15 @@ export default function Examples() {
         </div>
       </div>
 
-      {/* ======= Example Details ======= */}
-      <div className="mt-16 grid md:grid-cols-3 gap-8 px-6 max-w-5xl mx-auto">
+      {/* ======= Description Cards ======= */}
+      <div className="mt-20 grid md:grid-cols-3 gap-8 px-6 max-w-5xl mx-auto">
         <div className="p-6 rounded-xl bg-[#12111f] border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 shadow-md">
           <h3 className="text-purple-300 font-semibold text-lg mb-2">
             Humanize AI Portraits
           </h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Bring emotion and warmth to AI-generated faces using natural color
-            correction and fine-tuned lighting.
+            Add warmth and depth to AI-generated faces using fine-tuned color
+            correction and adaptive lighting.
           </p>
         </div>
 
@@ -53,8 +89,8 @@ export default function Examples() {
             Refine Artistic Creations
           </h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Enhance clarity, fix details, and balance tones for more realistic
-            and visually appealing AI art.
+            Sharpen textures, enhance clarity, and fix imperfections for a
+            clean, artistic finish.
           </p>
         </div>
 
@@ -63,14 +99,14 @@ export default function Examples() {
             Perfect Skin Textures
           </h3>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Remove imperfections while keeping natural detail — ideal for
-            portraits and creative AI edits.
+            Balance smoothness and realism with AI-assisted texture correction
+            for portraits.
           </p>
         </div>
       </div>
 
-      {/* Subtle background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-purple-500/10 blur-3xl rounded-full -z-10"></div>
+      {/* Subtle Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-purple-500/10 blur-3xl rounded-full -z-10"></div>
     </section>
   );
 }
