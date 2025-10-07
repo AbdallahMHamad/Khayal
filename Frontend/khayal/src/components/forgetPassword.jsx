@@ -1,32 +1,26 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-export default function Login() {
+export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
-
     try {
       const response = await axios.post(
-        "https://localhost:7058/api/user/login",
-        { email, password },
+        "https://localhost:7058/api/user/forgot-password",
+        { email },
         { withCredentials: true }
       );
-      setMessage(response.data.message);
-    } catch (error) {
       setMessage(
-        error.response?.data?.message || "Login failed, please try again."
+        response.data.message || "Password reset link sent successfully."
       );
-      setEmail("");
-      setPassword("");
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Error sending reset link.");
     } finally {
       setLoading(false);
     }
@@ -75,31 +69,16 @@ export default function Login() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
+                d="M12 11c0-1.104.896-2 2-2h6a2 2 0 012 2v8a2 2 0 01-2 2H14a2 2 0 01-2-2v-8zM4 11h4m-2-2v2m2 0v2m-2 2h2"
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
+          <h1 className="text-3xl font-bold text-white">Forgot Password?</h1>
           <p className="text-gray-300 mt-2 text-sm">
-            Sign in to explore the universe of possibilities
+            Enter your email and we'll send you a reset link.
           </p>
         </div>
-        <button
-          type="submit"
-          href="/"
-          className="w-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors py-2 rounded-lg flex items-center justify-center gap-2 mb-4 border border-purple-400/50 cursor-pointer"
-        >
-          <img
-            style={{ width: "20px", height: "20px", borderRadius: "47%" }}
-            src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI0MDtxPTgwO3c9MjQw/https://s.yimg.com/zb/imgv1/e76fa261-e45b-3514-872d-e8fa3a2473e5/t_500x300"
-            alt="Google"
-            className="w-5 h-5"
-          />
-          Continue with Google
-        </button>
-        <div className="text-center text-gray-400 text-xs mb-4">
-          OR CONTINUE WITH EMAIL
-        </div>
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
             type="email"
@@ -108,33 +87,23 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="********"
-            className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
-            <Link to="/forgetPassword">Forgot password?</Link>
-          </button>
 
           <button
             type="submit"
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            {loading ? "logging In..." : "log In"}
+            {loading ? "Sending..." : "Send Reset Link"}
           </button>
         </form>
+
         <p className="text-center text-gray-400 text-sm mt-6">
-          Don't have an account?{" "}
+          Remember your password?{" "}
           <span
-            onClick={() => navigate("/signup")}
-            className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
+            onClick={() => (window.location.href = "/login")}
+            className="text-blue-300 hover:text-blue-100 cursor-pointer"
           >
-            Sign Up
+            Back to Login
           </span>
         </p>
       </div>
@@ -154,7 +123,7 @@ export default function Login() {
             background-size: 200% 200%;
             animation: gradient-xy 15s ease infinite;
           }
-         @keyframes fadeInOut {
+          @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(20px); }
             10%, 90% { opacity: 1; transform: translateY(0); }
           }
