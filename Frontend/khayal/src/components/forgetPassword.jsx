@@ -30,7 +30,7 @@ export default function ForgotPassword() {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Galaxy Background */}
       <div className="absolute top-10 left-10 z-30">
-        <a href="/" className="text-2xl font-bold text-blue-400">
+        <a href="/" className="text-5xl font-bold text-purple-400">
           Khayal
         </a>
       </div>

@@ -37,7 +37,7 @@ export default function Login() {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Galaxy Background */}
       <div className="absolute top-10 left-10 z-30">
-        <a href="/" className="text-2xl font-bold text-blue-400">
+        <a href="/" className="text-5xl font-bold text-purple-400">
           Khayal
         </a>
       </div>
@@ -117,7 +117,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-<button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
+          <button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
             <Link to="/forgetPassword">Forgot password?</Link>
           </button>
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
+  const { i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -12,13 +14,16 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-10 py-6 navbar-blur ${
-        scrolled ? "navbar-small" : ""
+      className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-10 py-6 transition-all duration-300 ${
+        scrolled ? "backdrop-blur-md bg-black/40" : "bg-transparent"
       }`}
     >
-      <Link to="/" className="text-2xl font-bold text-blue-400">
+      {/* Logo */}
+      <Link to="/" className="text-5xl font-bold text-blue-400">
         Khayal
       </Link>
+
+      {/* Menu */}
       <ul className="hidden md:flex gap-8 text-sm font-medium">
         <li>
           <a href="#features" className="hover:text-blue-400">
@@ -41,12 +46,39 @@ export default function Navbar() {
           </a>
         </li>
       </ul>
-      <Link
-        to="/login"
-        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold"
-      >
-        Sign In
-      </Link>
+
+      {/* Language Switcher + Login */}
+      <div className="flex items-center gap-3">
+        <div className="flex items-center bg-gray-800/60 backdrop-blur-md rounded-full p-1 border border-gray-700">
+          <button
+            onClick={() => i18n.changeLanguage("en")}
+            className={`px-4 py-1 rounded-full text-sm font-medium transition-all ${
+              i18n.language === "en"
+                ? "bg-gradient-to-r from-purple-400 to-blue-500 text-white"
+                : "text-gray-300 hover:text-white"
+            }`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => i18n.changeLanguage("ar")}
+            className={`px-4 py-1 rounded-full text-sm font-medium transition-all ${
+              i18n.language === "ar"
+                ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white"
+                : "text-gray-300 hover:text-white"
+            }`}
+          >
+            AR
+          </button>
+        </div>
+
+        <Link
+          to="/login"
+          className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold"
+        >
+          Log In
+        </Link>
+      </div>
     </nav>
   );
 }

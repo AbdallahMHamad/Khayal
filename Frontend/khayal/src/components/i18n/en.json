@@ -1,0 +1,78 @@
+{
+  "pricingPlans": "Pricing Plans",
+  "mostPopular": "Most Popular",
+  "choosePlan": "Choose Plan",
+  "plans": {
+    "basic": {
+      "desc": "Essential tools for individuals.",
+      "features": [
+        "Access to basic AI tools",
+        "Standard image generation",
+        "Limited cloud storage (2GB)",
+        "Community support"
+      ]
+    },
+    "professional": {
+      "desc": "Enhanced quality & faster speeds.",
+      "features": [
+        "HD image generation",
+        "Priority rendering queue",
+        "10GB cloud storage",
+        "Email support",
+        "Custom style presets"
+      ]
+    },
+    "genius": {
+      "desc": "Full control and advanced AI tools.",
+      "features": [
+        "4K AI generation",
+        "Prompt optimization tools",
+        "50GB storage",
+        "Early access to new models",
+        "Dedicated support"
+      ]
+    },
+    "business": {
+      "desc": "Team collaboration & 8K processing.",
+      "features": [
+        "8K ultra-fast AI rendering",
+        "Team collaboration tools",
+        "200GB secured storage",
+        "API access",
+        "24/7 premium support"
+      ]
+    }
+  },
+  "examples": {
+    "title": "Before&After",
+    "card1": {
+      "title": "Humanize AI Portraits",
+      "description": "Add warmth and depth to AI-generated faces using fine-tuned color correction and adaptive lighting."
+    },
+    "card2": {
+      "title": "Refine Artistic Creations",
+      "description": "Sharpen textures, enhance clarity, and fix imperfections for a clean, artistic finish."
+    },
+    "card3": {
+      "title": "Perfect Skin Textures",
+      "description": "Balance smoothness and realism with AI-assisted texture correction for portraits."
+    }
+  },
+
+  "features": {
+    "mainTitle": "Main Features",
+    "enhanceImagesTitle": "Enhance Images",
+    "enhanceImagesDesc": "Boost details and natural lighting.",
+    "increaseSharpnessTitle": "Increase Sharpness",
+    "increaseSharpnessDesc": "Eliminate blur and noise instantly.",
+    "smartFiltersTitle": "Smart Filters",
+    "smartFiltersDesc": "Apply realistic AI-based clarity filters."
+  },
+  "hero": {
+    "title": "Transform Your AI Images to Perfection",
+    "subtitle": "Advanced AI technology that fixes artificial patterns and enhances skin textures while preserving your image's original character.",
+    "btnEnhance": "Start Enhancing ",
+    "btnExamples": "View Examples",
+    "footer": "✨ Compatible with Midjourney, DALL-E, Stable Diffusion & more"
+  }
+}

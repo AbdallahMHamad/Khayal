@@ -5,7 +5,22 @@ body {
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
 }
+.global-bg {
+  background: radial-gradient(circle at center, #000 0%, #050505 100%);
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+.global-bg {
+  @apply bg-gradient-to-b from-black via-gray-900 to-black;
+  background-size: cover;
+  background-position: center;
+}
 
+/* optional smooth blur effect when scrolling */
+.backdrop-blur-md {
+  backdrop-filter: blur(10px);
+}
 .navbar-blur {
   backdrop-filter: blur(16px);
   background: rgba(10, 15, 30, 0.85);
