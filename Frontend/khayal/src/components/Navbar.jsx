@@ -64,7 +64,7 @@ export default function Navbar() {
             onClick={() => i18n.changeLanguage("ar")}
             className={`px-4 py-1 rounded-full text-sm font-medium transition-all ${
               i18n.language === "ar"
-                ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white"
+                ? "bg-gradient-to-r from-purple-400 to-blue-500 text-white"
                 : "text-gray-300 hover:text-white"
             }`}
           >
