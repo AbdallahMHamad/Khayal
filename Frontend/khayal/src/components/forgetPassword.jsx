@@ -79,14 +79,17 @@ export default function ForgotPassword() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="you@example.com"
-            className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="inputbox">
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <span>Email Address</span>
+            <i></i>
+          </div>
 
           <button
             type="submit"
@@ -129,6 +132,60 @@ export default function ForgotPassword() {
           }
           .animate-fade-in-out {
             animation: fadeInOut 4s ease-in-out forwards;
+          }
+
+          /* Floating input style */
+          .inputbox {
+            position: relative;
+            width: 100%;
+          }
+          .inputbox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            z-index: 10;
+          }
+          .inputbox span {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            color: #b0a8d9;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            pointer-events: none;
+          }
+          .inputbox input:valid ~ span,
+          .inputbox input:focus ~ span {
+            color: #a78bfa;
+            transform: translateX(-8px) translateY(-32px);
+            font-size: 0.8em;
+            letter-spacing: 0.1em;
+          }
+          .inputbox i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: 0.5s;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+            z-index: 9;
+          }
+          .inputbox input:valid ~ i,
+          .inputbox input:focus ~ i {
+            height: 44px;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
           }
         `}
       </style>

@@ -85,6 +85,8 @@ export default function Login() {
             Sign in to explore the universe of possibilities
           </p>
         </div>
+
+        {/* Google Login */}
         <button
           type="submit"
           href="/"
@@ -98,24 +100,34 @@ export default function Login() {
           />
           Continue with Google
         </button>
+
         <div className="text-center text-gray-400 text-xs mb-4">
           OR CONTINUE WITH EMAIL
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="you@example.com"
-            className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="********"
-            className="p-3 rounded-lg bg-[#1f1b2e] border border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-400"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="inputbox">
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <span>Email Address</span>
+            <i></i>
+          </div>
+
+          <div className="inputbox">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span>Password</span>
+            <i></i>
+          </div>
 
           <button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
             <Link to="/forgetPassword">Forgot password?</Link>
@@ -126,9 +138,10 @@ export default function Login() {
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            {loading ? "logging In..." : "log In"}
+            {loading ? "Logging In..." : "Log In"}
           </button>
         </form>
+
         <p className="text-center text-gray-400 text-sm mt-6">
           Don't have an account?{" "}
           <span
@@ -161,6 +174,65 @@ export default function Login() {
           }
           .animate-fade-in-out {
             animation: fadeInOut 4s ease-in-out forwards;
+          }
+
+          /* Floating Input Animation */
+          .inputbox {
+            position: relative;
+            width: 100%;
+          }
+
+          .inputbox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            z-index: 10;
+          }
+
+          .inputbox span {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            color: #b0a8d9;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            pointer-events: none;
+          }
+
+          .inputbox input:valid ~ span,
+          .inputbox input:focus ~ span {
+            color: #a78bfa;
+            transform: translateX(-8px) translateY(-32px);
+            font-size: 0.8em;
+            letter-spacing: 0.1em;
+          }
+
+          .inputbox i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: 0.5s;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+            z-index: 9;
+          }
+
+          .inputbox input:valid ~ i,
+          .inputbox input:focus ~ i {
+            height: 44px;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
           }
         `}
       </style>
