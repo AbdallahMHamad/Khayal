@@ -14,15 +14,17 @@ import ForgotPassword from "./components/forgetPassword";
 function HomePage() {
   return (
     <div className="global-bg min-h-screen text-white">
-      <Layout>
-        <main className="pt-24">
-          <Hero />
-          <Features />
-          <Examples />
-          <Pricing />
-          <FAQ />
-        </main>
-      </Layout>
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 -z-0">
+        <Layout>
+          <main className="pt-24">
+            <Hero />
+            <Features />
+            <Examples />
+            <Pricing />
+            <FAQ />
+          </main>
+        </Layout>
+      </div>
     </div>
   );
 }
