@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
+  const rtl = i18n.language === "ar";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -16,33 +17,33 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-10 py-6 transition-all duration-300 ${
         scrolled ? "backdrop-blur-md bg-black/40" : "bg-transparent"
-      }`}
+      } ${rtl ? "direction-rtl" : ""}`}
     >
       {/* Logo */}
       <Link to="/" className="text-5xl font-bold text-blue-400">
-        Khayal
+        {t("navbar.logo")}
       </Link>
 
       {/* Menu */}
-      <ul className="hidden md:flex gap-8 text-sm font-medium">
+      <ul className="hidden md:flex gap-8 text-xl font-medium">
         <li>
           <a href="#features" className="hover:text-blue-400">
-            Features
+            {t("navbar.features")}
           </a>
         </li>
         <li>
           <a href="#examples" className="hover:text-blue-400">
-            Examples
+            {t("navbar.examples")}
           </a>
         </li>
         <li>
           <a href="#pricing" className="hover:text-blue-400">
-            Pricing
+            {t("navbar.pricing")}
           </a>
         </li>
         <li>
           <a href="#faq" className="hover:text-blue-400">
-            FAQ
+            {t("navbar.faq")}
           </a>
         </li>
       </ul>
@@ -58,7 +59,7 @@ export default function Navbar() {
                 : "text-gray-300 hover:text-white"
             }`}
           >
-            EN
+            {t("navbar.english")}
           </button>
           <button
             onClick={() => i18n.changeLanguage("ar")}
@@ -68,7 +69,7 @@ export default function Navbar() {
                 : "text-gray-300 hover:text-white"
             }`}
           >
-            AR
+            {t("navbar.arabic")}
           </button>
         </div>
 
@@ -76,7 +77,7 @@ export default function Navbar() {
           to="/login"
           className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold"
         >
-          Log In
+          {t("navbar.login")}
         </Link>
       </div>
     </nav>

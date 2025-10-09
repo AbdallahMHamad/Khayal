@@ -74,5 +74,15 @@
     "btnEnhance": "Start Enhancing ",
     "btnExamples": "View Examples",
     "footer": "✨ Compatible with Midjourney, DALL-E, Stable Diffusion & more"
+  },
+  "navbar": {
+    "logo": "Khayal",
+    "features": "Features",
+    "examples": "Examples",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "english": "EN",
+    "arabic": "AR",
+    "login": "Log In"
   }
 }

@@ -97,5 +97,15 @@
     "btnEnhance": "ابدأ التحسين ",
     "btnExamples": "عرض الأمثلة",
     "footer": "✨ متوافق مع Midjourney و DALL-E و Stable Diffusion والمزيد"
+  },
+  "navbar": {
+    "logo": "خيال",
+    "features": "المميزات",
+    "examples": "الأمثلة",
+    "pricing": "الأسعار",
+    "faq": "الأسئلة الشائعة",
+    "english": "إنجليزي",
+    "arabic": "عربي",
+    "login": "تسجيل الدخول"
   }
 }

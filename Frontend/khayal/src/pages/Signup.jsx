@@ -114,6 +114,7 @@ export default function Signup() {
               required
             />
             <span>Full Name</span>
+            <i></i>
           </div>
 
           <div className="inputbox">
@@ -124,6 +125,7 @@ export default function Signup() {
               required
             />
             <span>Email Address</span>
+            <i></i>
           </div>
 
           <div className="inputbox">
@@ -134,6 +136,7 @@ export default function Signup() {
               required
             />
             <span>Password</span>
+            <i></i>
           </div>
 
           <button

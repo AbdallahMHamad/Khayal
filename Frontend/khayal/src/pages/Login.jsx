@@ -21,7 +21,7 @@ export default function Login() {
         { email, password },
         { withCredentials: true }
       );
-      setMessage(response.data.message);
+      setMessage(response?.data?.message);
     } catch (error) {
       setMessage(
         error.response?.data?.message || "Login failed, please try again."

@@ -8,7 +8,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
   const rtl = i18n.language === "ar";
 
-  return (
+  return (  
     <section
       id="faq"
       dir={rtl ? "rtl" : "ltr"}
