@@ -17,4 +17,9 @@
     </PackageReference>
   </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Khayal.Core\Khayal.Core.csproj" />
+		<ProjectReference Include="..\Khayal.Data\Khayal.Data.csproj" />
+	</ItemGroup>
+
 </Project>

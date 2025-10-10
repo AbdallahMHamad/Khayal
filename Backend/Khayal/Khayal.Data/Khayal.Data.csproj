@@ -17,9 +17,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UnitOfWork\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\Khayal.Core\Khayal.Core.csproj" />
+	</ItemGroup>
 </Project>

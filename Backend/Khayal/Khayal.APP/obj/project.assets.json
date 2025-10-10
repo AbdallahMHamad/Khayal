@@ -1458,6 +1458,39 @@
             "rid": "win"
           }
         }
+      },
+      "Khayal.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "AutoMapper": "15.0.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
+          "Microsoft.EntityFrameworkCore": "8.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Khayal.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Khayal.Core.dll": {}
+        }
+      },
+      "Khayal.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "AutoMapper": "15.0.1",
+          "Khayal.Core": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
+          "Microsoft.EntityFrameworkCore": "8.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Khayal.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Khayal.Data.dll": {}
+        }
       }
     }
   },
@@ -3778,11 +3811,23 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Khayal.Core/1.0.0": {
+      "type": "project",
+      "path": "../Khayal.Core/Khayal.Core.csproj",
+      "msbuildProject": "../Khayal.Core/Khayal.Core.csproj"
+    },
+    "Khayal.Data/1.0.0": {
+      "type": "project",
+      "path": "../Khayal.Data/Khayal.Data.csproj",
+      "msbuildProject": "../Khayal.Data/Khayal.Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 15.0.1",
+      "Khayal.Core >= 1.0.0",
+      "Khayal.Data >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
@@ -3820,7 +3865,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Core\\Khayal.Core.csproj": {
+              "projectPath": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Core\\Khayal.Core.csproj"
+            },
+            "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Data\\Khayal.Data.csproj": {
+              "projectPath": "D:\\Programs\\Khayal\\Backend\\Khayal\\Khayal.Data\\Khayal.Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

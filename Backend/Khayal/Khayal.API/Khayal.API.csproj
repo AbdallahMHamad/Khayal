@@ -22,4 +22,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Khayal.Core\Khayal.Core.csproj" />
+		<ProjectReference Include="..\Khayal.App\Khayal.App.csproj" />
+	</ItemGroup>
+
+
 </Project>
