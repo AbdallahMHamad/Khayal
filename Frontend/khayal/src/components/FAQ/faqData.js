@@ -1,13 +1,13 @@
 export const faqs = [
   {
     id: "aiTechnology",
-    q: "How does Enhancor's AI technology work?",
-    a: "Enhancor uses advanced machine learning trained on millions of premium-quality images to enhance textures, balance lighting, and preserve natural realism.",
+    q: "How does Khayal's AI technology work?",
+    a: "Khayal uses advanced machine learning trained on millions of premium-quality images to enhance textures, balance lighting, and preserve natural realism.",
   },
   {
     id: "aiCompatibility",
     q: "Will it work with my AI-generated images?",
-    a: "Absolutely! Enhancor is fully compatible with AI art from Midjourney, DALL·E, Stable Diffusion, Leonardo AI, and other platforms.",
+    a: "Absolutely! Khayal is fully compatible with AI art from Midjourney, DALL·E, Stable Diffusion, Leonardo AI, and other platforms.",
   },
   {
     id: "enhancementSpeed",
