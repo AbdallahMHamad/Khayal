@@ -1,42 +1,66 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { verifyOTP, sendOTP } from "../services/authService";
 import { useTranslation } from "react-i18next";
-import { axiosInstance } from "../api/axios";
 
-export default function ResetPassword() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const email = location.state?.email; // from VerifyOTP page
-
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+export default function VerifyOTP() {
+  const [otp, setOtp] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [resending, setResending] = useState(false);
+  const [timer, setTimer] = useState(60);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const location = useLocation();
 
-  async function handleSubmit(e) {
+  useEffect(() => {
+    const stateEmail = location.state?.email;
+    if (stateEmail) {
+      setEmail(stateEmail);
+    } else {
+      navigate("/forgetPassword");
+    }
+  }, [location, navigate]);
+
+  useEffect(() => {
+    if (timer > 0) {
+      const countdown = setTimeout(() => setTimer(timer - 1), 1000);
+      return () => clearTimeout(countdown);
+    }
+  }, [timer]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-
-    if (newPassword !== confirmPassword) {
-      setMessage(t("resetPassword.passwordsMismatch"));
-      return;
-    }
-
+    setLoading(true);
     try {
-      setLoading(true);
-      await axiosInstance.post("/user/reset-password", {
-        email,
-        newPassword,
-      });
-      setMessage(t("resetPassword.success"));
-      setTimeout(() => navigate("/login"), 2000);
-    } catch (err) {
-      setMessage(err.response?.data?.message || t("resetPassword.error"));
+      const response = await verifyOTP(email, otp);
+      setMessage(response.data.message || t("verify.success"));
+      setTimeout(() => {
+        navigate("/reset-password", { state: { email } });
+      }, 1500);
+    } catch (error) {
+      setMessage(error.response?.data?.message || t("verify.error"));
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const handleResend = async () => {
+    if (timer > 0) return;
+    setResending(true);
+    setMessage("");
+    try {
+      await sendOTP(email);
+      setMessage(t("verify.resent"));
+      setTimer(60);
+    } catch {
+      setMessage(t("verify.resendError"));
+    } finally {
+      setResending(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
@@ -87,11 +111,10 @@ export default function ResetPassword() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">
-            {t("resetPassword.title")}
-          </h1>
+          <h1 className="text-3xl font-bold text-white">{t("verify.title")}</h1>
           <p className="text-gray-300 mt-2 text-sm">
-            {t("resetPassword.subtitle")}
+            {t("verify.subtitle")}{" "}
+            <span className="text-blue-400">{email}</span>
           </p>
         </div>
 
@@ -99,23 +122,13 @@ export default function ResetPassword() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="inputbox">
             <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              type="text"
+              name="otp"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
               required
             />
-            <span>{t("resetPassword.newPassword")}</span>
-            <i></i>
-          </div>
-
-          <div className="inputbox">
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            <span>{t("resetPassword.confirmPassword")}</span>
+            <span>{t("verify.placeholder")}</span>
             <i></i>
           </div>
 
@@ -124,16 +137,32 @@ export default function ResetPassword() {
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg font-semibold text-white shadow-md"
           >
-            {loading ? t("resetPassword.loading") : t("resetPassword.btn")}
+            {loading ? t("verify.loading") : t("verify.btn")}
           </button>
         </form>
 
+        {/* Resend Button */}
+        <div className="flex flex-col items-center mt-4">
+          <button
+            onClick={handleResend}
+            disabled={timer > 0 || resending}
+            className="text-blue-400 hover:text-blue-200 transition-colors"
+          >
+            {resending
+              ? t("verify.resending")
+              : timer > 0
+              ? `${t("verify.resendIn")} ${timer}s`
+              : t("verify.resend")}
+          </button>
+        </div>
+
         <p className="text-center text-gray-400 text-sm mt-6">
+          {t("verify.backMsg")}{" "}
           <span
             onClick={() => navigate("/login")}
             className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
           >
-            {t("resetPassword.backToLogin")}
+            {t("verify.back")}
           </span>
         </p>
       </div>

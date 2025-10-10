@@ -135,14 +135,32 @@
     "againSuccess": "OTP sent again successfully!",
     "againError": "Error sending OTP again."
   },
+  "verify": {
+    "title": "Verify OTP",
+    "subtitle": "Enter the verification code sent to",
+    "placeholder": "Enter your OTP code",
+    "btn": "Verify Code",
+    "loading": "Verifying...",
+    "success": "OTP verified successfully!",
+    "error": "Invalid or expired OTP. Please try again.",
+    "resend": "Resend OTP",
+    "resending": "Resending...",
+    "resendIn": "Resend available in",
+    "resent": "OTP resent successfully!",
+    "resendError": "Failed to resend OTP. Please try again.",
+    "backMsg": "Entered wrong email?",
+    "back": "Back to Login"
+  },
   "resetPassword": {
     "title": "Reset Password",
-    "subtitle": "Create a new password for your account",
+    "subtitle": "Enter your new password below to complete the reset process.",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
-    "btn": "Confirm Change",
-    "loading": "Changing...",
-    "success": "Password changed successfully!",
-    "mismatch": "Passwords do not match."
+    "btn": "Reset Password",
+    "loading": "Resetting...",
+    "success": "Your password has been reset successfully!",
+    "error": "Failed to reset password. Please try again.",
+    "passwordsMismatch": "Passwords do not match. Please try again.",
+    "backToLogin": "Back to Login"
   }
 }

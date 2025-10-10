@@ -138,7 +138,6 @@ export default function Signup() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                placeholder={t("signup.fullName")}
               />
               <span>{t("signup.fullName")}</span>
               <i></i>
@@ -149,7 +148,6 @@ export default function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder={t("signup.email")}
               />
               <span>{t("signup.email")}</span>
               <i></i>
@@ -160,7 +158,6 @@ export default function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder={t("signup.password")}
               />
               <span>{t("signup.password")}</span>
               <i></i>
@@ -224,62 +221,78 @@ export default function Signup() {
       )}
 
       <style>{`
-        .inputbox {
-  position: relative;
-  width: 100%;
-}
-
-.inputbox input {
-  width: 100%;
-  padding: 18px 10px 10px; /* قلل padding-top لتجنب تداخل النص */
-  background: transparent;
-  outline: none;
-  border: none;
-  color: #fff;
-  font-size: 1em;
-  letter-spacing: 0.05em;
-  z-index: 10;
-}
-
-.inputbox span {
-  position: absolute;
-  left: 10px;
-  top: 18px; /* عدّل هذا لتناسب padding الجديد */
-  padding: 0;
-  font-size: 1em;
-  color: #b0a8d9;
-  letter-spacing: 0.05em;
-  transition: 0.3s;
-  pointer-events: none;
-}
-
-.inputbox input:focus ~ span,
-.inputbox input:valid ~ span {
-  color: #a78bfa;
-  transform: translateX(-8px) translateY(-28px); /* عدّل Y لتتناسب مع top الجديد */
-  font-size: 0.8em;
-  letter-spacing: 0.1em;
-}
-
-.inputbox i {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg,#8b5cf6,#3b82f6,#8b5cf6);
-  border-radius: 4px;
-  transition: 0.5s;
-  pointer-events: none;
-  box-shadow: 0 0 10px rgba(139,92,246,0.6);
-  z-index: 9;
-}
-
-.inputbox input:focus ~ i,
-.inputbox input:valid ~ i {
-  height: 44px;
-  box-shadow: 0 0 15px rgba(167,139,250,0.8);
-}
+           @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+          }
+          @keyframes gradient-xy {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animate-gradient-xy {
+            background-size: 200% 200%;
+            animation: gradient-xy 15s ease infinite;
+          }
+          @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-out {
+            animation: fadeInOut 4s ease-in-out forwards;
+          }
+          .inputbox {
+            position: relative;
+            width: 100%;
+          }
+          .inputbox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 20px 10px;
+            background: transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            z-index: 10;
+          }
+          .inputbox span {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            color: #b0a8d9;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            pointer-events: none;
+          }
+          .inputbox input:valid ~ span,
+          .inputbox input:focus ~ span {
+            color: #a78bfa;
+            transform: translateX(-8px) translateY(-32px);
+            font-size: 0.8em;
+            letter-spacing: 0.1em;
+          }
+          .inputbox i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: 0.5s;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+            z-index: 9;
+          }
+          .inputbox input:valid ~ i,
+          .inputbox input:focus ~ i {
+            height: 44px;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
+          }
   `}</style>
     </div>
   );

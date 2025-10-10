@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sendOTP } from "../services/authService";
-import { useTranslation } from "react-i18next"; // ✅ added
+import { useTranslation } from "react-i18next";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -11,9 +11,7 @@ export default function ForgotPassword() {
   const [otpLoading, setOtpLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation(); // ✅ added
-
-  const handleChange = (e) => setEmail(e.target.value);
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +20,10 @@ export default function ForgotPassword() {
     try {
       const response = await sendOTP(email);
       setMessage(response.data.message || t("forgot.success"));
-      setOtpSent(true);
+      navigate("/verify-otp", { state: { email } });
+
+      // navigate to reset page after sending OTP
+      navigate("/resetPassword", { state: { email } });
     } catch (error) {
       setMessage(error.response?.data?.message || t("forgot.error"));
     } finally {
@@ -30,29 +31,14 @@ export default function ForgotPassword() {
     }
   };
 
-  const handleSendOtpAgain = async () => {
-    setOtpLoading(true);
-    setMessage("");
-    try {
-      const response = await sendOTP(email);
-      setMessage(response.data.message || t("forgot.againSuccess"));
-    } catch (error) {
-      setMessage(error.response?.data?.message || t("forgot.againError"));
-    } finally {
-      setOtpLoading(false);
-    }
-  };
-
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Logo */}
       <div className="absolute top-10 left-10 z-30">
         <a href="/" className="text-5xl font-bold text-purple-400">
           Khayal
         </a>
       </div>
 
-      {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-900 to-black animate-gradient-xy">
         <div className="absolute inset-0">
           {Array.from({ length: 200 }).map((_, i) => (
@@ -73,7 +59,6 @@ export default function ForgotPassword() {
         </div>
       </div>
 
-      {/* Main Card */}
       <div className="relative z-10 w-full max-w-md p-10 rounded-3xl bg-gradient-to-tr from-[#0f0c29] via-[#302b63] to-[#24243e] shadow-2xl border border-purple-500/30 backdrop-blur-md">
         <div className="flex flex-col items-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full flex items-center justify-center mb-4 shadow-lg">
@@ -96,14 +81,12 @@ export default function ForgotPassword() {
           <p className="text-gray-300 mt-2 text-sm">{t("forgot.subtitle")}</p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="inputbox">
             <input
-              type="text"
-              name="email"
+              type="email"
               value={email}
-              onChange={handleChange}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
             <span>{t("forgot.email")}</span>
@@ -117,96 +100,92 @@ export default function ForgotPassword() {
           >
             {loading ? t("forgot.sending") : t("forgot.send")}
           </button>
+          <p className="text-center text-gray-400 text-sm mt-6">
+            {t("signup.alreadyAccount")}{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
+            >
+              {t("signup.login")}
+            </span>
+          </p>
         </form>
-
-        {/* Send OTP Again Button */}
-        {otpSent && (
-          <button
-            onClick={handleSendOtpAgain}
-            disabled={otpLoading}
-            className="mt-4 w-full bg-blue-500 hover:bg-blue-600 transition-colors py-2 rounded-lg text-white font-medium"
-          >
-            {otpLoading ? t("forgot.sending") : t("forgot.sendAgain")}
-          </button>
-        )}
-
-        <p className="text-center text-gray-400 text-sm mt-6">
-          {t("forgot.remember")}{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
-          >
-            {t("forgot.back")}
-          </span>
-        </p>
       </div>
 
-      {/* Animations & Input Style */}
       <style>{`
-        @keyframes twinkle { 0% {opacity:0.3;} 100% {opacity:1;} }
-        @keyframes gradient-xy { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
-        .animate-gradient-xy { background-size: 200% 200%; animation: gradient-xy 15s ease infinite; }
-
-        .inputbox {
-          position: relative;
-          width: 100%;
-        }
-        .inputbox input {
-          position: relative;
-          width: 100%;
-          padding: 20px 10px 10px;
-          background: transparent;
-          outline: none;
-          border: none;
-          color: #fff;
-          font-size: 1em;
-          letter-spacing: 0.05em;
-          z-index: 10;
-        }
-        .inputbox span {
-          position: absolute;
-          left: 10px;
-          top: 10px;
-          padding: 10px;
-          font-size: 1em;
-          color: #b0a8d9;
-          letter-spacing: 0.05em;
-          transition: 0.5s;
-          pointer-events: none;
-        }
-        .inputbox input:valid ~ span,
-        .inputbox input:focus ~ span {
-          color: #a78bfa;
-          transform: translateX(-8px) translateY(-32px);
-          font-size: 0.8em;
-          letter-spacing: 0.1em;
-        }
-        .inputbox i {
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          height: 2px;
-          background: linear-gradient(90deg, #8b5cf6, #3b82f6, #8b5cf6);
-          border-radius: 4px;
-          transition: 0.5s;
-          pointer-events: none;
-          box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
-          z-index: 9;
-        }
-        .inputbox input:valid ~ i,
-        .inputbox input:focus ~ i {
-          height: 44px;
-          box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
-        }
+          @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+          }
+          @keyframes gradient-xy {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .animate-gradient-xy {
+            background-size: 200% 200%;
+            animation: gradient-xy 15s ease infinite;
+          }
+          @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+          }
+          .animate-fade-in-out {
+            animation: fadeInOut 4s ease-in-out forwards;
+          }
+          .inputbox {
+            position: relative;
+            width: 100%;
+          }
+          .inputbox input {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            letter-spacing: 0.05em;
+            z-index: 10;
+          }
+          .inputbox span {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            padding: 10px;
+            font-size: 1em;
+            color: #b0a8d9;
+            letter-spacing: 0.05em;
+            transition: 0.5s;
+            pointer-events: none;
+          }
+          .inputbox input:valid ~ span,
+          .inputbox input:focus ~ span {
+            color: #a78bfa;
+            transform: translateX(-8px) translateY(-32px);
+            font-size: 0.8em;
+            letter-spacing: 0.1em;
+          }
+          .inputbox i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+            transition: 0.5s;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+            z-index: 9;
+          }
+          .inputbox input:valid ~ i,
+          .inputbox input:focus ~ i {
+            height: 44px;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
+          }
       `}</style>
-
-      {/* Message */}
-      {message && (
-        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-black to-purple-500 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-medium animate-fade-in-out z-50">
-          {message}
-        </div>
-      )}
     </div>
   );
 }

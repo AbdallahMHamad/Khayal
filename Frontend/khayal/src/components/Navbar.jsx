@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const rtl = i18n.language === "ar";
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -13,16 +15,36 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ Scroll to top when logo is clicked
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+
+    if (location.pathname === "/") {
+      // If already on homepage, just scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Navigate to home, then scroll to top
+      navigate("/");
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+    }
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center px-10 py-6 transition-all duration-300 ${
         scrolled ? "backdrop-blur-md bg-black/40" : "bg-transparent"
       } ${rtl ? "direction-rtl" : ""}`}
     >
-      {/* Logo */}
-      <Link to="/" className="text-5xl font-bold text-blue-400">
+      {/* ✅ Logo (scrolls to top) */}
+      <a
+        href="/"
+        onClick={handleLogoClick}
+        className="text-5xl font-bold text-blue-400 cursor-pointer"
+      >
         {t("navbar.logo")}
-      </Link>
+      </a>
 
       {/* Menu */}
       <ul className="hidden md:flex gap-8 text-xl font-medium">
