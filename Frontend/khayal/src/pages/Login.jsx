@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../api/axios";
+import { useTranslation } from "react-i18next"; // ✅ added
 
 export default function Login() {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation(); // ✅ added
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,16 +18,14 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "https://localhost:7058/api/user/login",
-        { email, password },
-        { withCredentials: true }
-      );
-      setMessage(response?.data?.message);
+      const response = await axiosInstance.post("/user/login", {
+        email,
+        password,
+      });
+      setMessage(response?.data?.message || t("login.success"));
+      // navigate("/dashboard"); // optional redirect
     } catch (error) {
-      setMessage(
-        error.response?.data?.message || "Login failed, please try again."
-      );
+      setMessage(error.response?.data?.message || t("login.failed"));
       setEmail("");
       setPassword("");
     } finally {
@@ -35,12 +35,14 @@ export default function Login() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Galaxy Background */}
+      {/* Logo */}
       <div className="absolute top-10 left-10 z-30">
         <a href="/" className="text-5xl font-bold text-purple-400">
           Khayal
         </a>
       </div>
+
+      {/* Galaxy Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-900 to-black animate-gradient-xy">
         <div className="absolute inset-0">
           {Array.from({ length: 200 }).map((_, i) => (
@@ -61,7 +63,7 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Main Form */}
+      {/* Main Login Form */}
       <div className="relative z-10 w-full max-w-md p-10 rounded-3xl bg-gradient-to-tr from-[#0f0c29] via-[#302b63] to-[#24243e] shadow-2xl border border-purple-500/30 backdrop-blur-md">
         <div className="flex flex-col items-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full flex items-center justify-center mb-4 shadow-lg">
@@ -80,29 +82,25 @@ export default function Login() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
-          <p className="text-gray-300 mt-2 text-sm">
-            Sign in to explore the universe of possibilities
-          </p>
+          <h1 className="text-3xl font-bold text-white">{t("login.title")}</h1>
+          <p className="text-gray-300 mt-2 text-sm">{t("login.subtitle")}</p>
         </div>
 
         {/* Google Login */}
         <button
-          type="submit"
-          href="/"
+          type="button"
           className="w-full bg-black bg-opacity-50 hover:bg-opacity-70 transition-colors py-2 rounded-lg flex items-center justify-center gap-2 mb-4 border border-purple-400/50 cursor-pointer"
         >
           <img
-            style={{ width: "20px", height: "20px", borderRadius: "47%" }}
             src="https://s.yimg.com/fz/api/res/1.2/I2ucT7v2aEn9pInvuzBnPQ--~C/YXBwaWQ9c3JjaGRkO2ZpPWZpdDtoPTI0MDtxPTgwO3c9MjQw/https://s.yimg.com/zb/imgv1/e76fa261-e45b-3514-872d-e8fa3a2473e5/t_500x300"
             alt="Google"
-            className="w-5 h-5"
+            className="w-5 h-5 rounded-full"
           />
-          Continue with Google
+          {t("login.google")}
         </button>
 
         <div className="text-center text-gray-400 text-xs mb-4">
-          OR CONTINUE WITH EMAIL
+          {t("login.orEmail")}
         </div>
 
         {/* Login Form */}
@@ -114,7 +112,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <span>Email Address</span>
+            <span>{t("login.email")}</span>
             <i></i>
           </div>
 
@@ -125,12 +123,15 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <span>Password</span>
+            <span>{t("login.password")}</span>
             <i></i>
           </div>
 
-          <button className="text-right text-sm text-blue-300 hover:text-blue-100 cursor-pointer">
-            <Link to="/forgetPassword">Forgot password?</Link>
+          <button
+            type="button"
+            className="text-right text-sm text-blue-300 hover:text-blue-100"
+          >
+            <Link to="/forgetPassword">{t("login.forgot")}</Link>
           </button>
 
           <button
@@ -138,21 +139,22 @@ export default function Login() {
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg mt-2 font-semibold text-white shadow-md"
           >
-            {loading ? "Logging In..." : "Log In"}
+            {loading ? t("login.loading") : t("login.btn")}
           </button>
         </form>
 
         <p className="text-center text-gray-400 text-sm mt-6">
-          Don't have an account?{" "}
+          {t("login.noAccount")}{" "}
           <span
             onClick={() => navigate("/signup")}
             className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
           >
-            Sign Up
+            {t("login.signup")}
           </span>
         </p>
       </div>
 
+      {/* Style Section */}
       <style>
         {`
           @keyframes twinkle {
@@ -168,20 +170,17 @@ export default function Login() {
             background-size: 200% 200%;
             animation: gradient-xy 15s ease infinite;
           }
-         @keyframes fadeInOut {
+          @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(20px); }
             10%, 90% { opacity: 1; transform: translateY(0); }
           }
           .animate-fade-in-out {
             animation: fadeInOut 4s ease-in-out forwards;
           }
-
-          /* Floating Input Animation */
           .inputbox {
             position: relative;
             width: 100%;
           }
-
           .inputbox input {
             position: relative;
             width: 100%;
@@ -194,7 +193,6 @@ export default function Login() {
             letter-spacing: 0.05em;
             z-index: 10;
           }
-
           .inputbox span {
             position: absolute;
             left: 10px;
@@ -206,7 +204,6 @@ export default function Login() {
             transition: 0.5s;
             pointer-events: none;
           }
-
           .inputbox input:valid ~ span,
           .inputbox input:focus ~ span {
             color: #a78bfa;
@@ -214,7 +211,6 @@ export default function Login() {
             font-size: 0.8em;
             letter-spacing: 0.1em;
           }
-
           .inputbox i {
             position: absolute;
             left: 0;
@@ -228,7 +224,6 @@ export default function Login() {
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
             z-index: 9;
           }
-
           .inputbox input:valid ~ i,
           .inputbox input:focus ~ i {
             height: 44px;

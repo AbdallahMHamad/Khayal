@@ -1,45 +1,38 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { sendOTP } from "../services/authService";
-import { useTranslation } from "react-i18next"; // ✅ added
+import { useNavigate, useLocation } from "react-router-dom";
+import { resetPassword } from "../services/authService";
+import { useTranslation } from "react-i18next";
 
-export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
+export default function ResetPassword() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const email = location.state?.email || "";
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpLoading, setOtpLoading] = useState(false);
-
-  const navigate = useNavigate();
-  const { t, i18n } = useTranslation(); // ✅ added
-
-  const handleChange = (e) => setEmail(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    setLoading(true);
+
+    if (newPassword !== confirmPassword) {
+      setMessage(t("resetPassword.mismatch"));
+      return;
+    }
+
     try {
-      const response = await sendOTP(email);
-      setMessage(response.data.message || t("forgot.success"));
-      setOtpSent(true);
+      setLoading(true);
+      const response = await resetPassword(email, newPassword);
+      setMessage(response.data.message || t("resetPassword.success"));
+      setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
-      setMessage(error.response?.data?.message || t("forgot.error"));
+      setMessage(error.response?.data?.message || "Error resetting password.");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleSendOtpAgain = async () => {
-    setOtpLoading(true);
-    setMessage("");
-    try {
-      const response = await sendOTP(email);
-      setMessage(response.data.message || t("forgot.againSuccess"));
-    } catch (error) {
-      setMessage(error.response?.data?.message || t("forgot.againError"));
-    } finally {
-      setOtpLoading(false);
     }
   };
 
@@ -92,21 +85,37 @@ export default function ForgotPassword() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-white">{t("forgot.title")}</h1>
-          <p className="text-gray-300 mt-2 text-sm">{t("forgot.subtitle")}</p>
+          <h1 className="text-3xl font-bold text-white">
+            {t("resetPassword.title")}
+          </h1>
+          <p className="text-gray-300 mt-2 text-sm">
+            {t("resetPassword.subtitle")}
+          </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <div className="inputbox">
             <input
-              type="text"
-              name="email"
-              value={email}
-              onChange={handleChange}
+              type="password"
+              name="newPassword"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               required
             />
-            <span>{t("forgot.email")}</span>
+            <span>{t("resetPassword.newPassword")}</span>
+            <i></i>
+          </div>
+
+          <div className="inputbox">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <span>{t("resetPassword.confirmPassword")}</span>
             <i></i>
           </div>
 
@@ -115,33 +124,12 @@ export default function ForgotPassword() {
             disabled={loading}
             className="bg-purple-500 hover:bg-purple-600 transition-colors py-3 rounded-lg font-semibold text-white shadow-md"
           >
-            {loading ? t("forgot.sending") : t("forgot.send")}
+            {loading ? t("resetPassword.loading") : t("resetPassword.btn")}
           </button>
         </form>
-
-        {/* Send OTP Again Button */}
-        {otpSent && (
-          <button
-            onClick={handleSendOtpAgain}
-            disabled={otpLoading}
-            className="mt-4 w-full bg-blue-500 hover:bg-blue-600 transition-colors py-2 rounded-lg text-white font-medium"
-          >
-            {otpLoading ? t("forgot.sending") : t("forgot.sendAgain")}
-          </button>
-        )}
-
-        <p className="text-center text-gray-400 text-sm mt-6">
-          {t("forgot.remember")}{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className="text-blue-300 hover:text-blue-100 cursor-pointer transition-colors"
-          >
-            {t("forgot.back")}
-          </span>
-        </p>
       </div>
 
-      {/* Animations & Input Style */}
+      {/* Styles */}
       <style>{`
         @keyframes twinkle { 0% {opacity:0.3;} 100% {opacity:1;} }
         @keyframes gradient-xy { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
