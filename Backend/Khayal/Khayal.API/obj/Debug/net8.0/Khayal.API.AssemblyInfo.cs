@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Khayal.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b8e81318847bef95f18d93da6f0cd01a861fbed")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a34056daf0f38e64704c603a580480f0bf730e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Khayal.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Khayal.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
