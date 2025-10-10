@@ -67,7 +67,7 @@ export default function VerifyOTP() {
       {/* Logo */}
       <div className="absolute top-10 left-10 z-30">
         <a href="/" className="text-5xl font-bold text-purple-400">
-          Khayal
+          {t("navbar.logo")}
         </a>
       </div>
 
